@@ -42,4 +42,11 @@ class ProjectsTest extends TestCase
         $this->post('projects', $attributes)
             ->assertSessionHasErrors('description');
     }
+
+    public function test_a_user_can_view_a_project()
+    {
+        $project = Project::factory()->create();
+
+        $this->get('/projects/' . $project->id)->assertSee($project->title);
+    }
 }
