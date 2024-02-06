@@ -8,12 +8,15 @@
     <title>Document</title>
 </head>
 <body>
+<h1>Billboard with TDD</h1>
    <ul>
-       @foreach($projects as $project)
+       @forelse($projects as $project)
            <li>
-               {{ $project->title }}
+               <a href="{{ $project->path() }}"> {{ $project->title }}</a>
            </li>
-       @endforeach
+       @empty
+           <h1>No Projects Found</h1>
+       @endforelse
    </ul>
 
 </body>
