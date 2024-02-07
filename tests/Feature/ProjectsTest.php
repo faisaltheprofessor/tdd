@@ -51,11 +51,34 @@ class ProjectsTest extends TestCase
     }
 
 
-    public function test_a_user_can_view_a_project()
+    public function test_guests_cannot_view_a_single_project()
     {
         $project = Project::factory()->create();
 
+        $this->get($project->path())->assertRedirect('login');
+    }
+
+    public function test_guests_cannot_view_projects()
+    {
+
+        $this->get('/projects')->assertRedirect('login');
+    }
+
+    public function test_a_user_can_view_their_projects()
+    {
+        $this->be(User::factory()->create());
+        $project = Project::factory()->create(['owner_id' => auth()->id()]);
+
         $this->get($project->path())->assertSee($project->title);
+    }
+
+    public function test_an_authenticated_user_cannot_see_projects_of_others()
+    {
+        $userWhoCreatedTheProject = User::factory()->create();
+        $this->be(User::factory()->create());
+        $project = Project::factory()->create(['owner_id' => $userWhoCreatedTheProject->id]);
+
+        $this->get($project->path())->assertForbidden();
     }
 
 

@@ -8,11 +8,16 @@ class ProjectController extends Controller
 {
     public function index()
     {
-        return view('projects.index', ['projects' => Project::all()]);
+        return view('projects.index', ['projects' => Project::where('owner_id', auth()->id())->get()]);
     }
 
     public function show(Project $project)
     {
+        if(auth()->user()->isNot($project->owner))
+        {
+            abort(403);
+        }
+
         return view('project.show', ['project' => $project]);
     }
 
