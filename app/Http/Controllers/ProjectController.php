@@ -17,7 +17,12 @@ class ProjectController extends Controller
             abort(403);
         }
 
-        return view('project.show', ['project' => $project]);
+        return view('projects.show', ['project' => $project]);
+    }
+
+    public function create()
+    {
+        return view('projects.create');
     }
 
     public function store()
@@ -25,5 +30,6 @@ class ProjectController extends Controller
         $attributes = request()->validate(['title' => 'string|required', 'description' => 'required|string']);
         $attributes['owner_id'] = auth()->id();
         Project::create($attributes);
+        return redirect('/projects');
     }
 }

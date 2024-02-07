@@ -80,5 +80,11 @@ class ManageProjectsTest extends TestCase
         $this->get($project->path())->assertForbidden();
     }
 
+    public function test_only_authenticated_users_can_visit_create_page()
+    {
+        $this->get('/projects/create')->assertRedirect('login');
+        $this->actingAs(User::factory()->create())->get('/projects/create')->assertOk();
+    }
+
 
 }
