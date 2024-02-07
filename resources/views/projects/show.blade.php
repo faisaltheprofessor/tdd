@@ -1,13 +1,9 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    <h1>{{ $project->title }}</h1>
-</body>
-</html>
+@extends('layout')
+
+@section('content')
+    <a href="/projects" class="bg-teal-600 text-white hover:bg-teal-700 px-3 py-2 rounded font-bold txt-x">&larr; Back</a>
+    <div class="mt-4">
+        <h1 class="text-2xl font-bold">{{ $project->title }}</h1>
+        <p class="text-sm"> {{ $project->description  }}</p>
+    </div>
+@endsection
