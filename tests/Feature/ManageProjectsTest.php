@@ -50,7 +50,6 @@ class ManageProjectsTest extends TestCase
             ->assertRedirect('login');
     }
 
-
     public function test_guests_cannot_view_a_single_project()
     {
         $project = Project::factory()->create();
